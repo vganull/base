@@ -1,0 +1,32 @@
+HISTSIZE=500
+HISTFILESIZE=500
+HISTFILE=/Users/hop/.bash_history
+
+export HISTIGNORE='&:?:??:date:ls:pwd:'
+HISTIGNORE=' *:&:?:??'
+
+export HISTCONTROL=ignoreboth:erasedups
+# HISTSIZE=0			# disable or stop recording
+
+
+
+
+Interactive commands
+--------------------
+
+history -c			                    # clear all
+history 20
+history -d <num> && history -w
+
+
+ln -sf /dev/null ~/.bash_history
+
+
+remove duplicate history
+
+$ awk '!seen[$0]++' old > new
+
+# reverse sort , needs `moreutils'
+tac $HISTFILE | awk '!x[$0]++' | tac | sponge $HISTFILE
+#
+tac ~/.bash_history | awk '!a[$0]++' | tac > t; mv t ~/.bash_history

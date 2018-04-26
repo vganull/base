@@ -1,0 +1,6 @@
+#!/usr/bin/env dash
+
+bc <<END
+scale=5
+$@
+END
