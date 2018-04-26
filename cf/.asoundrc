@@ -1,0 +1,84 @@
+# Online audio test
+# http://www.audiocheck.net/
+#
+#
+#
+
+# To get valid ALSA card names
+# aplay -l | awk -F \: '/,/{print $2}' | awk '{print $1}' | uniq
+# or
+# cat /proc/asound/card*/id
+# cat /proc/asound/cards
+# 
+#
+# $ aplay -L | grep :CARD
+# $ cat /sys/class/sound/card*/id
+
+pcm.!default {
+	type plug
+	slave.pcm "dmixer"
+}
+
+pcm.dmixer  {
+ 	type dmix
+ 	ipc_key 1024
+ 	slave {
+		#pcm "hw:0,7"
+		pcm "hw:Generic,0"
+		period_time 0
+		period_size 1024
+		buffer_size 4096
+		rate 44100
+	}
+	bindings {
+		0 0
+		1 1
+	}
+}
+
+ctl.dmixer {
+	type hw
+	card 0
+}
+
+
+
+
+
+ # defaults.pcm.!card "HDMI"
+ # defaults.pcm.!device 3
+ # defaults.ctl.!card "HDMI"
+#defaults.pcm.!card "Generic"
+#defaults.pcm.device 0
+#defaults.ctl.!card "Generic"
+
+#defaults.pcm.!card   HDMI
+#defaults.pcm.!device 3
+#defaults.pcm.!ctl    HDMI
+
+#defaults.pcm.!card   Generic
+#defaults.pcm.!device 0
+#defaults.pcm.!ctl    Generic
+#
+#defaults.pcm.dmix.rate 96000
+
+
+
+#pcm.!default {
+#    type plug
+#    slave.pcm {
+#        @func getenv
+#        vars [ ALSAPCM ]
+#        default "hw:HDMI"
+#    }
+#}
+
+
+# output very ugly sound
+#
+#pcm.!default {
+#  type plug
+#  slave.pcm "hdmi"
+#}
+
+
